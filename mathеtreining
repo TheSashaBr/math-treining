@@ -1,0 +1,114 @@
+from random import randint
+from colorama import Fore
+from time import *
+
+print("Привет! Добро пожаловать в тренировщик математики! version 7.0 (СПАСИБО ОТЦУ ЗА ТАЙМИНГ)")
+print("Здесь ты можешь тренировать свои навыки")
+print("Пожалуйста выбери уровень игры (тренировка, контроль)")
+t = 10
+lvl = input()
+incorrect_answer = 0 #неправильных ответов
+
+def multiplication(x, y, z):
+    number = int(input("Введите число с которым хотите играть"))
+    correct_answers = 0
+    incorrect_answer = 0
+    total_responses = 0  #всего ответов
+    duplicate_numbers = []
+    i = 0
+    while True:
+        total_responses += 1 
+        action = randint(x, y)
+        while action in duplicate_numbers:
+            action = randint(x, y)
+        right_answer = action * number
+        print(action, "*", number, "=")
+        nach = perf_counter()
+        answer = int(input())
+        kon = perf_counter()
+        if answer == right_answer:
+            i += kon-nach
+            print(Fore.GREEN + "Молодец, правильно!")
+            print(Fore.WHITE +"Вы потратили", round(kon-nach, 1), "секунд.")
+            correct_answers += 1
+            duplicate_numbers.append(action)
+        if answer != right_answer:
+            i += kon-nach
+            print(Fore.RED + "Ты ошибся,(лась)!")
+            print(Fore.GREEN + "Правильный ответ -", right_answer)
+            print(Fore.WHITE +"Вы потратили", round(kon-nach, 1), "секунд.")
+            incorrect_answer += 1
+        if total_responses % 10 == 0:
+            print("Количество правильных ответов - ", correct_answers)
+            print("Всего вы потратили", round(i, 1), "секунд")
+            yes_or_no = input("Хотите продолжить? (напишите да или нет)")
+            if yes_or_no == 'нет':
+                print("Спасибо что пользовались моей программой!")
+                break
+            if yes_or_no == 'да':
+                duplicate_numbers = []
+                print("Пожалуйста выбери уровень игры (тренировка, контроль)")
+                lvl = input()
+                if lvl == 'тренировка':
+                    multiplication(x = 0, y = 10, z = 10)
+                if lvl == 'контроль':
+                    kontrol(x = 0, y = 10, z = 10)
+
+def kontrol(x, y, z):
+    number = int(input("Введите число с которым хотите играть"))
+    correct_answers = 0
+    incorrect_answer = 0
+    total_responses = 0  #всего ответов
+    duplicate_numbers = []
+    i = 0
+    fio = input("Введите ваше ФИО:")
+    klass = input("Введите ваше класс:")
+    while True:
+        total_responses += 1 
+        action = randint(x, y)
+        while action in duplicate_numbers:
+            action = randint(x, y)
+        right_answer = action * number
+        print(action, "*", number, "=")
+        nach = perf_counter()
+        answer = int(input())
+        kon = perf_counter()
+        if answer == right_answer:
+            i += kon-nach
+            correct_answers += 1
+            duplicate_numbers.append(action)
+        if answer != right_answer:
+            i += kon-nach
+            incorrect_answer += 1
+        if total_responses % 10 == 0:
+            print(fio, klass)
+            print("Количество правильных ответов - ", correct_answers)
+            print("Всего вы потратили", round(i, 1), "секунд")
+            if correct_answers >= 9:
+                print("Ваша оценка - ", Fore.GREEN + "отлично")
+            else:
+                if correct_answers >= 8:
+                    print("Ваша оценка - ", Fore.BLUE + "хорошо")
+                else:
+                    if correct_answers >= 6:
+                        print("Ваша оценка - ", Fore.YELLOW + "удовлетворительно")
+                    else:
+                        print("Ваша оценка - ", Fore.RED + "неудовлетворительно")
+            yes_or_no = input(Fore.WHITE + "Хотите продолжить? (напишите да или нет)")
+            if yes_or_no == 'нет':
+                print("Спасибо что пользовались моей программой!")
+                break
+            if yes_or_no == 'да':
+                duplicate_numbers = []
+                print("Пожалуйста выбери уровень игры (тренировка, контроль)")
+                lvl = input()
+                if lvl == 'тренировка':
+                    multiplication(x = 0, y = 10, z = 10)
+                if lvl == 'контроль':
+                    kontrol(x = 0, y = 10, z = 10)
+
+if lvl == 'тренировка':
+        multiplication(x = 0, y = 10, z = 10)
+
+if lvl == 'контроль':
+        kontrol(x = 0, y = 10, z = 10)
